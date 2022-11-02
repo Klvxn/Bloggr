@@ -15,7 +15,6 @@ from users.views import users_bp
 
 app = Flask(__name__)
 app.config.from_object(app_conf)
-# print(app.config)
 app.register_blueprint(auth_bp)
 app.register_blueprint(blogs_bp)
 app.register_blueprint(users_bp)
