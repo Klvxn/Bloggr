@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/utils.html' import render_icon %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+
+{% block body %}
+<p>{{ render_messages(dismissible=True, dismiss_animate=True) }}</p>
+<h3>{{ blog.title|title }}</h3>
+<div class="blog_container">
+    <div class="blog_details text-muted">
+        {{ render_icon('tag', '1.5rem') }} {{ blog.tag }} <br>
+        {{ blog.date_posted.date().strftime('%Y %b %d') }} <br>
+        By <a href="{{ url_for('users.get_user', user_id=blog.writer.id) }}">{{ blog.writer }}</a> <br>
+    </div>
+    <article class="my-5 blog_post">{{ blog.content|safe }}</article>
+
+    {% if current_user == blog.writer %}
+        <div class="options">
+            <a class="btn btn-outline-secondary p-2 me-5" href="{{ url_for('blogs.edit_blog', blog_id=blog.id) }}">Edit Blog</a>
+            <a class="btn btn-outline-danger p-2" href="{{ url_for('blogs.delete_blog', blog_id=blog.id) }}">Delete Blog</a>
+        </div>
+    {% endif %}
+
+    {% if blog.comment %}
+        <hr>
+        <div>
+            <h5>Comments</h5>
+            {% for comment in blog.comment %}
+                <div class="comments">
+                    {% if comment.posted_by %}
+                        {{ comment.posted_by }}:
+                    {% else %}  
+                        {{ comment.guest_user }}:
+                    {% endif %}
+                    {{ comment }} <br>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <hr>
+    <div>
+        <h5>Add Comment</h5>
+        {{ render_form(form) }}
+    </div>
+</div>
+{% endblock %}

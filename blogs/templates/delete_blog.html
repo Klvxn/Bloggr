@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<h3> Delete Blog</h3>
+<h5>This action will also delete comments made by other users under this blog</h5>
+<div class="blog_container my-5">
+    <span>Title: {{ blog.title }}</span> <br>
+    <span>Posted: {{ blog.date_posted.date().strftime('%Y %b %d') }}</span> <br>
+    <span>By: {{ blog.writer }}</span>
+    <div>
+        <article class="my-3 blog_post">
+            {% if blog.content.split()|length > 50 %}
+                {{ blog.content.split()[:50]|join(' ')|safe }} + {{ blog.content.split()|length - 50 }} more words...
+            {% else %}
+                {{ blog.content }}
+            {% endif %}
+        </article>
+    </div>
+    <form action="" class="form" method="post">
+        <div>
+            <input class="btn btn-danger me-5" type="submit" value="Delete">
+            <a id="cancel" class="btn btn-outline-secondary" href="{{ url_for('blogs.get_single_blog', blog_id=blog.id) }}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+

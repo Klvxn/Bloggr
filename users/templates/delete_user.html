@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block body %}
+<h3>Delete Account</h3>
+{% if user.blogs %}
+    <h5>Deleting your account will also delete all your blogs</h5>
+    <div class="blog_container my-5">
+        {% for blog in user.blogs %}
+            <a id="u_blogs" href="{{ url_for('blogs.get_single_blog', blog_id=blog.id) }}">{{ blog.title|title }}</a>
+            &ThickSpace; - {{ blog.date_posted.date().strftime('%Y/%m/%d') }} <br>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="my-5"><h5>This action cannot be undone</h5>
+</p>
+{% endif %}
+<form action="" class="form" method="post">
+    <div>
+        <input class="btn btn-danger me-5" type="submit" value="Delete">
+        <a id="cancel" class="btn btn-outline-secondary" href="{{ url_for('users.get_user', user_id=current_user.id) }}">Cancel</a>
+    </div>
+</form>
+{% endblock %}

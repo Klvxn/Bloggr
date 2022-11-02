@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/utils.html' import render_messages %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+
+{% block body %}
+<h3>Register</h3>
+{{ render_messages(dismissible=True, dismiss_animate=True) }}
+{{ render_form(form, extra_classes='auth_form') }}
+{% endblock %}

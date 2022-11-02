@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+{% from 'bootstrap5/utils.html' import render_icon %}
+
+
+{% block body %}
+<div class="my-5 extra">
+
+    <h2 class="me-5">Get in touch</h2>
+    <h3>
+        Looking for a way to reach us or need more information about our services?<br> <br>
+        We would be happy to answer your questions and give your the information you seek. <br> <br>
+        <p>You can contact us at <br></p>
+        <p>{{ render_icon('envelope') }}: <a href="mailto:akpulukelvin@gmail.com">akpulukelvin@gmail.com</a></p>
+        <p>{{ render_icon('telephone') }}: (+234)-8175380665</p>
+        <address>{{ render_icon('geo-alt') }}: 195 Ifite Awka, Anambra, NGA</address>
+    </h3>
+    <h3 class="border-0">Or you can send us a message directly</h3>
+    <div>{{ render_form(form, extra_classes='contact_form') }}</div>
+    <hr>
+    <div>
+        <h5>Are you a fan of our service and would like to support our growth?
+        <a class="btn btn-outline-warning p-2" href="">Donate</a></h5>
+    </div>
+</div>
+<hr>
+<footer>Copyright (c) 2022 <br> All Rights Reserved</footer>
+{% endblock %}
