@@ -28,7 +28,7 @@ class Comment(db.Model):
     comment = db.Column(db.Text(800), nullable=False)
     blog = db.Column(
         db.Integer,
-        db.ForeignKey("blog.id", ondelete="CASCADE"),
+        db.ForeignKey("blog.id", ondelete="CASCADE", passive_deletes=True),
         nullable=False,
         index=True,
     )

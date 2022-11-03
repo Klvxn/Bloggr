@@ -37,6 +37,21 @@ def test_get_single_blog(client):
     assert response.status_code == HTTPStatus.OK
 
 
+def test_post_comment(client):
+    data = {
+        "comment_as": "Guest",
+        "name": "Flask guy",
+        "comment": "My code coverage is upto 90%",
+    }
+    response = client.post(
+        "/blogs/1/",
+        data=data,
+        follow_redirects=True,
+    )
+    assert response.status_code == HTTPStatus.OK
+    assert b"Comment posted successfully" in response.data
+
+
 def test_edit_blog(client):
     data = {
         "title": "Testing A Flask Blog Application With Pytest",
