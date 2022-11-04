@@ -1,10 +1,10 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from werkzeug.security import check_password_hash, generate_password_hash
+from werkzeug.security import generate_password_hash
 
 from database.db import db
 from users.models import User
-from utils import validate_user
+from utils import verify_password
 
 from .forms import LoginForm, ChangePasswordForm, RegisterForm
 
@@ -34,11 +34,11 @@ def log_in_user():
     if form.validate_on_submit():
         email = form.email.data
         password = form.password.data
-        valid_user = validate_user(email, password)
-        if not valid_user:
+        verified_user = verify_password(email, password)
+        if not verified_user:
             flash("Invalid email or password", "error")
         else:
-            login_user(valid_user)
+            login_user(verified_user)
             next_url = request.args.get("next")
             if next_url:
                 return redirect(next_url)
@@ -63,11 +63,11 @@ def change_password():
     if form.validate_on_submit():
         old_pwd = form.old_password.data
         new_pwd = form.new_password.data
-        valid_user = validate_user(password=old_pwd, use_current_user=True)
-        if not valid_user:
+        verified_user = verify_password(password=old_pwd, use_current_user=True)
+        if not verified_user:
             flash("Password is not correct", "error")
         else:
-            valid_user.password = generate_password_hash(new_pwd)
+            verified_user.password = generate_password_hash(new_pwd)
             db.session.commit()
             flash("Password changed succesfully", "success")
             return redirect(url_for("users.get_user", user_id=current_user.id))

@@ -22,18 +22,18 @@
         </div>
     {% endif %}
 
-    {% if blog.comment %}
+    {% if blog.blog_comment %}
         <hr>
         <div>
             <h5>Comments</h5>
-            {% for comment in blog.comment %}
+            {% for comment in blog.blog_comment %}
                 <div class="comments">
                     {% if comment.posted_by %}
                         {{ comment.posted_by }}:
                     {% else %}  
                         {{ comment.guest_user }}:
                     {% endif %}
-                    {{ comment }} <br>
+                    {{ comment }}  {{ comment.date_posted.time() }}<br>
                 </div>
             {% endfor %}
         </div>

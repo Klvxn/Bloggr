@@ -14,7 +14,7 @@ blogs_bp = Blueprint("blogs", __name__, template_folder="templates/")
 
 @blogs_bp.route("/", methods=["GET"])
 def home_page():
-    blogs = db.session.execute(db.select(Blog)).scalars()
+    blogs = db.session.query(Blog).all()
     context = {"blogs": blogs, "user": current_user}
     query = request.args.get("search")
     if query:
@@ -44,10 +44,11 @@ def get_single_blog(blog_id):
         elif comment_as == "Guest":
             Comment.add_comment(blog, comment, guest_user=name)
         else:
-            Comment.add_comment(blog, comment, user=current_user.id)
+            Comment.add_comment(blog, comment, user_id=current_user.id)
         flash("Comment posted successfully", "success")
         return redirect(url_for(".get_single_blog", blog_id=blog_id))
-    return render_template("blog.html", blog=blog, form=form)
+    context = {"blog": blog, "form": form}
+    return render_template("blog.html", **context)
 
 
 @blogs_bp.route("/add_new_blog/", methods=["GET", "POST"])
@@ -76,7 +77,8 @@ def edit_blog(blog_id):
         db.session.commit()
         flash("Update was saved successfully", "success")
         return redirect(url_for(".get_single_blog", blog_id=blog_id))
-    return render_template("edit_blog.html", blog=blog, form=form)
+    context = {"blog": blog, "form": form}
+    return render_template("edit_blog.html", **context)
 
 
 @blogs_bp.route("/blogs/<int:blog_id>/delete_blog/", methods=["GET", "POST"])
@@ -85,6 +87,9 @@ def delete_blog(blog_id):
     blog = db.get_or_404(Blog, blog_id)
     authorized = authorize(blog.writer, current_user)
     if authorized and request.method == "POST":
+        if blog.blog_comment:
+            for comment in blog.blog_comment:
+                db.session.delete(comment)
         db.session.delete(blog)
         db.session.commit()
         flash(f"Your blog has been deleted", "warning")

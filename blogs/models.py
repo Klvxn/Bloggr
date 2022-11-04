@@ -16,7 +16,13 @@ class Blog(db.Model):
         nullable=False,
         index=True,
     )
-    comment = db.relationship("Comment", backref="comments")
+    blog_comment = db.relationship(
+        "Comment",
+        backref="comments",
+        lazy="dynamic",
+        order_by="Comment.date_posted",
+        uselist=True,
+    )
 
     def __repr__(self):
         return f"{self.title} by {self.writer}"
@@ -26,13 +32,13 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, unique=True, primary_key=True)
     comment = db.Column(db.Text(800), nullable=False)
-    blog = db.Column(
+    blog_id = db.Column(
         db.Integer,
-        db.ForeignKey("blog.id", ondelete="CASCADE", passive_deletes=True),
+        db.ForeignKey("blog.id", ondelete="CASCADE"),
         nullable=False,
         index=True,
     )
-    user = db.Column(
+    user_id = db.Column(
         db.Integer,
         db.ForeignKey("user.id", ondelete="CASCADE"),
         nullable=True,
@@ -45,9 +51,12 @@ class Comment(db.Model):
         return f"{self.comment}"
 
     @staticmethod
-    def add_comment(blog, comment, guest_user=None, user=None):
+    def add_comment(blog, comment, guest_user=None, user_id=None):
         new_comment = Comment(
-            blog=blog.id, comment=comment, user=user, guest_user=guest_user
+            blog_id=blog.id,
+            comment=comment,
+            guest_user=guest_user,
+            user_id=user_id,
         )
         db.session.add(new_comment)
         db.session.commit()

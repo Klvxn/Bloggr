@@ -17,9 +17,9 @@ def authorize(obj_owner, sus_user):
     return True
 
 
-def validate_user(email=None, password=..., use_current_user=False):
+def verify_password(email=None, password=..., use_current_user=False):
     """
-    Validate a user against the provided password.
+    Verify a user against the provided password.
     Return the user object if the user exists and password is correct.
     """
     user = None

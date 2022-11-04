@@ -5,12 +5,12 @@
 
 {% block body %}
 <p>{{ render_messages(dismissible=True, dismiss_animate=True) }}</p>
-{% if blogs %}
+{% if not blogs %}
     <h3 class="border-0">There are currently no blogs yet.</h3>
     {% if current_user.is_authenticated %}
         <h5><a href="{{ url_for('blogs.add_blog') }}">Add a Blog</a></h5>
     {% else %}
-        <h5><a href="{{ url_for('auth.register') }}">Create an Account</a> and post a blog</h5>
+        <h5><a href="{{ url_for('auth.register') }}">Create an Account</a> and add a blog</h5>
     {% endif %}
 {% else %}
     <div class="blog_container">

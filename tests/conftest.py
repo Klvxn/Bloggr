@@ -1,21 +1,27 @@
-import tempfile
+import os
+from pathlib import Path
 
 import pytest
-
 from database.db import db
 from main import app
-from users.models import User
 
 
 @pytest.fixture(scope="session")
 def application():
-    app.config["TESTING"] = True
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
-    app.config["WTF_CSRF_ENABLED"] = False
-    with app.app_context():
+    test_app = app
+    base_dir = Path(__file__).resolve().parent
+    test_app.config["TESTING"] = True
+    test_db = "tests.db"
+    test_app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{Path(base_dir).joinpath(test_db)}"
+    test_app.config["WTF_CSRF_ENABLED"] = False
+
+    db.init_app(test_app)
+
+    with test_app.app_context():
         db.create_all()
-        yield app
+        yield test_app
         db.drop_all()
+    os.unlink(test_db)
 
 
 @pytest.fixture(scope="session")

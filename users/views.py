@@ -33,7 +33,8 @@ def update_user_account(user_id):
         db.session.commit()
         flash("Update was saved successfully", "success")
         return redirect(url_for(".get_user", user_id=user_id))
-    return render_template("update_user.html", form=form, user=user)
+    context = {"form": form, "user": user}
+    return render_template("update_user.html", **context)
 
 
 @users_bp.route("/<int:user_id>/delete_account/", methods=["GET", "POST"])
@@ -42,6 +43,9 @@ def delete_user_account(user_id):
     user = db.get_or_404(User, user_id)
     authorized = authorize(user, current_user)
     if authorized and request.method == "POST":
+        if user.blogs:
+            for blogs in user.blogs:
+                db.session.delete(blogs)
         db.session.delete(user)
         db.session.commit()
         flash("Your account has been deleted", "warning")
