@@ -3,15 +3,14 @@ from pathlib import Path
 
 import pytest
 from database.db import db
-from main import app
+from main import app as test_app
 
 
 @pytest.fixture(scope="session")
 def application():
-    test_app = app
-    base_dir = Path(__file__).resolve().parent
+    base_dir = Path(__file__).resolve().cwd()
     test_app.config["TESTING"] = True
-    test_db = "tests.db"
+    test_db = "database/tests.db"
     test_app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{Path(base_dir).joinpath(test_db)}"
     test_app.config["WTF_CSRF_ENABLED"] = False
 

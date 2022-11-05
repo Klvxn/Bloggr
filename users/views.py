@@ -43,9 +43,6 @@ def delete_user_account(user_id):
     user = db.get_or_404(User, user_id)
     authorized = authorize(user, current_user)
     if authorized and request.method == "POST":
-        if user.blogs:
-            for blogs in user.blogs:
-                db.session.delete(blogs)
         db.session.delete(user)
         db.session.commit()
         flash("Your account has been deleted", "warning")

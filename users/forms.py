@@ -14,7 +14,7 @@ class SocialsForm(Form):
     network_url = URLField(
         "",
         validators=[DataRequired()],
-        render_kw={"placeholder": "URL to your profilee"},
+        render_kw={"placeholder": "URL to your profile"},
     )
 
 

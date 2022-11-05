@@ -13,7 +13,13 @@ class User(db.Model, UserMixin):
     about = db.Column(db.Text(100), nullable=False)
     socials = db.Column(db.String(100), nullable=True)
     password = db.Column(db.String(50), unique=True, nullable=False)
-    blogs = db.relationship(Blog, backref="writer", lazy=True)
+    blogs = db.relationship(
+        Blog,
+        backref="writer",
+        cascade="all, delete",
+        lazy=True,
+        order_by=Blog.date_posted.desc(),
+    )
     comments = db.relationship(Comment, backref="posted_by", lazy=True)
 
     def __repr__(self):

@@ -14,7 +14,7 @@ blogs_bp = Blueprint("blogs", __name__, template_folder="templates/")
 
 @blogs_bp.route("/", methods=["GET"])
 def home_page():
-    blogs = db.session.query(Blog).all()
+    blogs = db.session.query(Blog).order_by(Blog.date_posted.desc()).all()
     context = {"blogs": blogs, "user": current_user}
     query = request.args.get("search")
     if query:
@@ -39,8 +39,8 @@ def get_single_blog(blog_id):
         comment = form.comment.data
         comment_as = form.comment_as.data
         if not current_user.is_authenticated and comment_as != "Guest":
-            flash("You need to login to post a comment", "error")
-            return redirect(url_for("auth.log_in_user"))
+            flash("You need to login to post a comment as a Member", "warning")
+            return redirect(url_for("auth.log_in_user", next=f"/blogs/{blog_id}/"))
         elif comment_as == "Guest":
             Comment.add_comment(blog, comment, guest_user=name)
         else:
@@ -87,9 +87,6 @@ def delete_blog(blog_id):
     blog = db.get_or_404(Blog, blog_id)
     authorized = authorize(blog.writer, current_user)
     if authorized and request.method == "POST":
-        if blog.blog_comment:
-            for comment in blog.blog_comment:
-                db.session.delete(comment)
         db.session.delete(blog)
         db.session.commit()
         flash(f"Your blog has been deleted", "warning")

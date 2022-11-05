@@ -16,12 +16,12 @@ class Blog(db.Model):
         nullable=False,
         index=True,
     )
-    blog_comment = db.relationship(
+    blog_comments = db.relationship(
         "Comment",
         backref="comments",
-        lazy="dynamic",
-        order_by="Comment.date_posted",
-        uselist=True,
+        cascade="all, delete",
+        lazy=True,
+        order_by="Comment.date_posted.desc()",
     )
 
     def __repr__(self):

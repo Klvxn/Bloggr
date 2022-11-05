@@ -6,16 +6,19 @@
 {% block body %}
 <div class="my-5 extra">
 
-    <h2 class="me-5">Get in touch</h2>
-    <h3>
+    <h2 class="me-5 mb-5">Get in touch</h2>
+    <h4>
         Looking for a way to reach us or need more information about our services?<br> <br>
-        We would be happy to answer your questions and give your the information you seek. <br> <br>
-        <p>You can contact us at <br></p>
-        <p>{{ render_icon('envelope') }}: <a href="mailto:akpulukelvin@gmail.com">akpulukelvin@gmail.com</a></p>
-        <p>{{ render_icon('telephone') }}: (+234)-8175380665</p>
-        <address>{{ render_icon('geo-alt') }}: 195 Ifite Awka, Anambra, NGA</address>
-    </h3>
-    <h3 class="border-0">Or you can send us a message directly</h3>
+        We would be happy to answer your questions and give you the information you seek. <br> <br>
+        <div>
+            <p> You can contact us at</p><br>
+            <p>{{ render_icon('envelope') }}: <a href="mailto:akpulukelvin@gmail.com">akpulukelvin@gmail.com</a></p>
+            <p>{{ render_icon('telephone') }}: (+234)-8175380665</p>
+            <p>{{ render_icon('geo-alt') }}: 195 Ifite Awka, Anambra, NGA</p>
+        </div>
+    </h4>
+    <hr>
+    <h4 class="border-0">Or you can send us a message directly</h4>
     <div>{{ render_form(form, extra_classes='contact_form') }}</div>
     <hr>
     <div>
