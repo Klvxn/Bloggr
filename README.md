@@ -42,8 +42,12 @@ pip install -r requirements.txt
 ```
 
 #### Start the local server
+Use either of these commands to start the local server
 ```
 flask --app main --debug run
+```
+```
+flask --app app/main --debug run
 ```
 
 Open your browser and go to http://127.0.0.1:5000

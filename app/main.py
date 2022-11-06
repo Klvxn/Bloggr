@@ -6,8 +6,8 @@ from flask_migrate import Migrate
 
 import app_conf
 from auth.views import auth_bp
-from blogs.models import Blog
 from blogs.views import blogs_bp
+from blogs.models import Blog, Comment
 from database.db import db
 from users.forms import ContactForm
 from users.models import User
