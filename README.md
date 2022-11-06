@@ -42,15 +42,17 @@ pip install -r requirements.txt
 ```
 
 #### Start the local server
-Use either of these commands to start the local server
 ```
 flask --app app/main --debug run
 ```
 
-Open your browser and go to http://127.0.0.1:5000
-There is currently no blogs or users in the database. You'd have to create an account to add or update blogs etc.
+Open your browser and go to http://127.0.0.1:5000 <br>
+There are currently no blogs or users in the database. You'd have to create an account to add or update blogs etc.
 
 #### To run tests
 ```
 coverage run -m pytest --disable-warnings
 ```
+
+### PS
+Shout out to our tutors at AltSchool Africa. They are the reason I was able to finish this project.
