@@ -3,19 +3,25 @@
 
 
 {% block body %}
-<div class="my-5 abot_page">
-    <h2>About us {{ render_icon('emoji-smile') }}</h2>
-    <h3 class="border-0">Bloggr is a weblog application service.</h3>
-    <h3>
-        We allow users from around the world know what it feels to be a writer. <br> <br>
-        Users don't need any experience in a professional writting. <br>
-        They can share any type of content be it sports, documentaries, politics, festivals etc. for readers to read and comment.
+<div class="my-5 about_page">
+    <div class="mb-5">
+        <h2 class="border-0 mb-4 text-info">Welcome to Bloggr {{ render_icon('emoji-smile') }}</h2>
+        <h5> A weblog application service for everyone and everything. </h5>
+    </div>
 
-        <h3 class="border-0">Register today and start publishing blogs on what you love doing :) </h3>
-
-        <a class="btn btn-primary my-5" id="register" href="{{ url_for('auth.register') }}">Register</a>
-    </h3>
     <div>
+        <h3 class="border=0 text-info">Mission</h3>
+        Our mission is to create a safe-space for users around the world to express themselves
+        or write about whatever they want to without fear of any kind. <br> <br>
+
+        Knowing how wild and vast the human mind can be, we want to create a safe, non-judgemental community where people can
+        openly and willingly share their thoughts, regardless of who, where and when it came from or what it's about.
+        <p>We are open to every category of contents. Sports, documentaries, politics, festivals etc...</p>
+    </div>
+
+    <p>Come and share with us your wildest thoughts and ideas. </p>
+    <a class="btn btn-primary my-5" id="register" href="{{ url_for('auth.register') }}">Get Started</a>
+
 </div>
 <hr>
 <footer>Copyright (c) 2022 <br> All Rights Reserved</footer>

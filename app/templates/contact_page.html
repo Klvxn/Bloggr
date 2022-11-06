@@ -6,8 +6,8 @@
 {% block body %}
 <p>{{ render_messages(dismissible=True, dismiss_animate=True) }}</p>
 <div class="my-5 extra">
-    <h2 class="me-5 mb-5">Get in touch</h2>
-    <h4>
+    <h2 class="me-5 mb-5 text-info">Get in touch</h2>
+    <div>
         Looking for a way to reach us or need more information about our services?<br> <br>
         We would be happy to answer your questions and give you the information you seek. <br> <br>
         <div>
@@ -16,9 +16,9 @@
             <p>{{ render_icon('telephone') }}: (+234)-8175380665</p>
             <p>{{ render_icon('geo-alt') }}: 195 Ifite Awka, Anambra, NGA</p>
         </div>
-    </h4>
+    </div>
     <hr>
-    <h4 class="border-0">Or you can send us a message directly</h4>
+    <h5 class="border-0">Or you can send us a message directly</h5>
     <div>{{ render_form(form, extra_classes='contact_form') }}</div>
 </div>
 <hr>

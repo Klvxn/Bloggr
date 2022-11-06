@@ -7,3 +7,4 @@ DATABASE = "database/bloggr.db"
 ENV = "development"
 SQLALCHEMY_DATABASE_URI = f"sqlite:///{Path(base_dir).joinpath(DATABASE)}"
 SECRET_KEY = "safe-space"
+MAIL_SUPPRESS_SEND = True

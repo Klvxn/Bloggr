@@ -25,9 +25,9 @@ cd Bloggr
 ```
 #### Install and activate virtual environment
 ```
-python venv .venv
+python -m venv .venv
 ```
-Activate the virtual environment
+Activate the virtual environment (using powershell)
 ```
 .venv\Scripts\activate
 ```
@@ -43,9 +43,6 @@ pip install -r requirements.txt
 
 #### Start the local server
 Use either of these commands to start the local server
-```
-flask --app main --debug run
-```
 ```
 flask --app app/main --debug run
 ```

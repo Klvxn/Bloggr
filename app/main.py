@@ -26,6 +26,7 @@ db.init_app(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = "auth.log_in_user"
+login_manager.login_message_category = "warning"
 
 migrate = Migrate(app, db, "database/migrations/")
 
@@ -52,7 +53,7 @@ def contact_page():
         message = form.message.data
         msg = Message(
             subject="Greetings",
-            recipients="akpulukelvin@gmail.com",
+            recipients=["akpulukelvin@gmail.com"],
             body=message,
             sender=(name, email),
         )

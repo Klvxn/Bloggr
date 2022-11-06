@@ -125,3 +125,7 @@ footer {
     font-size: var(--font-ml-size);
     text-decoration: none;
 }
+
+.about_page p {
+    margin: 2.5rem 0;
+}
