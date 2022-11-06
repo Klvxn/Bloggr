@@ -1,6 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, flash, render_template, redirect
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
+from flask_mail import Mail, Message
 from flask_migrate import Migrate
 
 import app_conf
@@ -28,6 +29,9 @@ login_manager.login_view = "auth.log_in_user"
 
 migrate = Migrate(app, db, "database/migrations/")
 
+mail = Mail(app)
+mail.init_app(app)
+
 
 @app.before_first_request
 def create_database():
@@ -39,9 +43,26 @@ def about_page():
     return render_template("about_page.html")
 
 
-@app.route("/contact-us/", methods=["GET"])
+@app.route("/contact-us/", methods=["GET", "POST"])
 def contact_page():
     form = ContactForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        email = form.email.data
+        message = form.message.data
+        msg = Message(
+            subject="Greetings",
+            recipients="akpulukelvin@gmail.com",
+            body=message,
+            sender=(name, email),
+        )
+        mail.connect()
+        mail.send(msg)
+        flash(
+            "Your message was sent successfully. We'd get back to you as soon as possible",
+            "success",
+        )
+        return redirect("/contact-us/")
     return render_template("contact_page.html", form=form)
 
 

@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
-{% from 'bootstrap5/utils.html' import render_messages %}
-{% from 'bootstrap5/utils.html' import render_icon %}
+{% from 'bootstrap5/utils.html' import render_icon, render_messages %}
 
 
 {% block body %}
@@ -19,8 +18,8 @@
                 {{ render_icon('cursor-fill', '1rem') }}<a href="{{ url_for('blogs.get_single_blog', blog_id=blog.id) }}"> {{ blog.title|title }} </a> <br>
                 <div class="mx-4">
                     <span class="blog_post">  {{ blog.content.split()[:35]|join(' ')|safe }} ... </span> <br> <br>
-                    {{ render_icon('tag', '1.5rem') }} {{ blog.tag }} <br>
-                    <span class="blog_details text-muted"> Posted: {{ blog.date_posted.date() }} </span> <br> 
+                    <span class="blog_details text-muted"> {{ render_icon('tag', '1.5rem') }} {{ blog.tag }} <br>
+                        Posted: {{ blog.date_posted.date() }} </span> <br>
                 </div>
             </article>
         {% endfor %}

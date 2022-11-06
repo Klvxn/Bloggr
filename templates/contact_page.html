@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% from 'bootstrap5/form.html' import render_form %}
-{% from 'bootstrap5/utils.html' import render_icon %}
+{% from 'bootstrap5/utils.html' import render_icon, render_messages %}
 
 
 {% block body %}
+<p>{{ render_messages(dismissible=True, dismiss_animate=True) }}</p>
 <div class="my-5 extra">
-
     <h2 class="me-5 mb-5">Get in touch</h2>
     <h4>
         Looking for a way to reach us or need more information about our services?<br> <br>
@@ -20,11 +20,6 @@
     <hr>
     <h4 class="border-0">Or you can send us a message directly</h4>
     <div>{{ render_form(form, extra_classes='contact_form') }}</div>
-    <hr>
-    <div>
-        <h5>Are you a fan of our service and would like to support our growth?
-        <a class="btn btn-outline-warning p-2" href="">Donate</a></h5>
-    </div>
 </div>
 <hr>
 <footer>Copyright (c) 2022 <br> All Rights Reserved</footer>
