@@ -29,7 +29,7 @@ python -m venv .venv
 ```
 Activate the virtual environment (using powershell)
 ```
-.venv\Scripts\activate
+.\.venv\Scripts\activate
 ```
 
 #### Install dependencies

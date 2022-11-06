@@ -40,7 +40,7 @@ class LoginForm(FlaskForm):
         """Check that the email exists before processing the form data"""
         user = db.session.query(User).filter(User.email == field.data).first()
         if not user:
-            raise ValidationError(f"No user with email address, {field.data}")
+            raise ValidationError(f"No user with email address: {field.data}")
 
 
 class ChangePasswordForm(FlaskForm):
