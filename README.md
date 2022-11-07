@@ -25,25 +25,30 @@ cd Bloggr
 ```
 #### Install and activate virtual environment
 ```
-python -m venv .venv
+py -3.10 -m venv .venv
 ```
-Activate the virtual environment (using powershell)
+Depending on the OS you're on:
+- Windows (Powershell)
 ```
 .\.venv\Scripts\activate
+```
+- Linux
+```
+source ./.venv/Scripts/activate
 ```
 
 #### Install dependencies
 With the virtual env activated, update python package manager, 'pip' and install dependencies
 ```
-pip install --upgrade pip
+py -3.10 -m pip install --upgrade pip
 ```
 ```
-pip install -r requirements.txt
+py -3.10 -m pip install -r requirements.txt
 ```
 
 #### Start the local server
 ```
-flask --app app/main --debug run
+py -3.10 -m flask --app app/main --debug run
 ```
 
 Open your browser and go to http://127.0.0.1:5000 <br>
