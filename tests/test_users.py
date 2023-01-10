@@ -14,8 +14,6 @@ def test_update_user_account(client, auth):
         "last_name": "User",
         "email": "flasktestuser@bloggr.com",
         "about": "I am a backend developer with Python and also a student at AltSchool Africa",
-        "socials-social": "GitHub",
-        "socials-network_url": "https://github.com/bloggr/",
     }
     response = client.post(
         "/users/1/update_my_account/",

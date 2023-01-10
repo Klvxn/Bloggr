@@ -10,7 +10,7 @@ from main import app as test_app
 def application():
     base_dir = Path(__file__).resolve().cwd()
     test_app.config["TESTING"] = True
-    test_db = "app/database/tests.db"
+    test_db = "database/tests.db"
     test_app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{Path(base_dir).joinpath(test_db)}"
     test_app.config["WTF_CSRF_ENABLED"] = False
 
