@@ -18,7 +18,7 @@ class BlogForm(FlaskForm):
 
     def validate_title(self, field: StringField):
         word_count = field.data.split()
-        if 2 >= len(word_count) or len(word_count) > 15:
+        if 2 > len(word_count) or len(word_count) > 15:
             raise ValidationError("Title should be between 2 and 15 words long")
 
     def validate_content(self, field: StringField):

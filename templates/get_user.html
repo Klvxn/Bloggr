@@ -2,7 +2,6 @@
 {% from 'bootstrap5/utils.html' import render_messages, render_icon %}
 
 
-
 {% block body %}
 <p>{{ render_messages(dismissible=True, dismiss_animate=True) }}</p>
 {% if current_user == user %}
@@ -14,7 +13,7 @@
 <div class="about">
     <p>{{ user.about.capitalize() }}</p>
     <p>Contact <br>{{ render_icon('envelope') }}: <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
-    {% if user.socials %} 
+    {% if user.socials %}
         <p class="socials">Socials: <br>
             <a href="{{ user.socials.split()[1] }}">{{ user.socials.split()[0] }}</a>
             {% if "GitHub" == user.socials.split()[0] %}  {{ render_icon('github', size='1.2rem') }}
@@ -28,10 +27,10 @@
 {% if current_user == user %}
     <div class  ="account_options" >
         <a id="update" class="btn btn-outline-secondary p-2 me-5" href="{{ url_for('users.update_user_account', user_id=current_user.id) }}">Update Account</a>
-        <a id="delete" class="btn btn-outline-danger p-2" href="{{ url_for('users.delete_user_account', user_id=current_user.id) }}">Delete Account</a>    
+        <a id="delete" class="btn btn-outline-danger p-2" href="{{ url_for('users.delete_user_account', user_id=current_user.id) }}">Delete Account</a>
     </div>
 {% endif %}
-    
+
 {% if user.blogs %}
     <hr>
     <div class="my-5">

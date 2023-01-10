@@ -34,7 +34,7 @@ Depending on the OS you're on:
 ```
 - Linux
 ```
-source ./.venv/Scripts/activate
+source ./.venv/bin/activate
 ```
 
 #### Install dependencies
@@ -48,7 +48,7 @@ py -3.10 -m pip install -r requirements.txt
 
 #### Start the local server
 ```
-py -3.10 -m flask --app app/main --debug run
+py -3.10 -m flask --app main --debug run
 ```
 
 Open your browser and go to http://127.0.0.1:5000 <br>

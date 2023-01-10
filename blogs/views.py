@@ -1,15 +1,14 @@
 from gettext import ngettext
 
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import abort, Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from database.db import db
-from utils import authorize
 
 from .forms import BlogForm, CommentForm
 from .models import Blog, Comment
 
-blogs_bp = Blueprint("blogs", __name__, template_folder="templates/")
+blogs_bp = Blueprint("blogs", __name__)
 
 
 @blogs_bp.route("/", methods=["GET"])
@@ -27,7 +26,7 @@ def home_page():
                 message = f"{len(results)} {text} found"
         flash(message, "info")
         context = {"blogs": results}
-    return render_template("all_blogs.html", **context)
+    return render_template("home_page.html", **context)
 
 
 @blogs_bp.route("/blogs/<int:blog_id>/", methods=["GET", "POST"])
@@ -48,7 +47,7 @@ def get_single_blog(blog_id):
         flash("Comment posted successfully", "success")
         return redirect(url_for(".get_single_blog", blog_id=blog_id))
     context = {"blog": blog, "form": form}
-    return render_template("blog.html", **context)
+    return render_template("single_blog.html", **context)
 
 
 @blogs_bp.route("/add_new_blog/", methods=["GET", "POST"])
@@ -71,8 +70,9 @@ def add_blog():
 def edit_blog(blog_id):
     blog = db.get_or_404(Blog, blog_id)
     form = BlogForm(obj=blog)
-    authorized = authorize(blog.writer, current_user)
-    if authorized and form.validate_on_submit():
+    if blog.writer != current_user:
+        return abort(403, "You don't have permission to perform this action")
+    if form.validate_on_submit():
         form.populate_obj(blog)
         db.session.commit()
         flash("Update was saved successfully", "success")
@@ -85,8 +85,9 @@ def edit_blog(blog_id):
 @login_required
 def delete_blog(blog_id):
     blog = db.get_or_404(Blog, blog_id)
-    authorized = authorize(blog.writer, current_user)
-    if authorized and request.method == "POST":
+    if blog.writer != current_user:
+        return abort(403, "You don't have permission to perform this action")
+    if request.method == "POST":
         db.session.delete(blog)
         db.session.commit()
         flash(f"Your blog has been deleted", "warning")

@@ -2,18 +2,17 @@ from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
 from database.db import db
-from utils import authorize
 
 from .forms import UserForm
 from .models import User
 
-users_bp = Blueprint("users", __name__, template_folder="templates/", url_prefix="/users/")
+users_bp = Blueprint("users", __name__, url_prefix="/users/")
 
 
 @users_bp.route("/<int:user_id>/", methods=["GET", "POST"])
 def get_user(user_id):
     user = db.get_or_404(User, user_id)
-    return render_template("user_page.html", user=user)
+    return render_template("get_user.html", user=user)
 
 
 @users_bp.route("/<int:user_id>/update_my_account/", methods=["GET", "POST"])
@@ -26,10 +25,6 @@ def update_user_account(user_id):
         user.first_name = form.first_name.data
         user.last_name = form.last_name.data
         user.email = form.email.data
-        socials = ""
-        for i in form.socials.data.values():
-            socials = socials + " " + i
-        user.socials = socials
         db.session.commit()
         flash("Update was saved successfully", "success")
         return redirect(url_for(".get_user", user_id=user_id))

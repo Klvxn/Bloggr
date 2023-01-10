@@ -11,7 +11,6 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(20), unique=True, nullable=False)
     about = db.Column(db.Text(100), nullable=False)
-    socials = db.Column(db.String(100), nullable=True)
     password = db.Column(db.String(50), unique=True, nullable=False)
     blogs = db.relationship(
         Blog,
