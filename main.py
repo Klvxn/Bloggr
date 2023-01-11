@@ -2,7 +2,6 @@ from flask import Flask, flash, render_template, redirect
 from flask_bootstrap import Bootstrap5
 from flask_login import LoginManager
 from flask_mail import Mail, Message
-from flask_migrate import Migrate
 
 import app_conf
 from auth.views import auth_bp
@@ -28,7 +27,6 @@ login_manager.init_app(app)
 login_manager.login_view = "auth.log_in_user"
 login_manager.login_message_category = "warning"
 
-migrate = Migrate(app, db, "database/migrations/")
 
 mail = Mail(app)
 mail.init_app(app)
